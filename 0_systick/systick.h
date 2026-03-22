@@ -15,10 +15,12 @@
   =======================================================================================
     [..]  
       (+) 24-bit down-counter with auto-reload capability.
-      (+) Core-integrated peripheral, providing consistent timing across Cortex-M devices.
+      (+) Core-integrated peripheral, providing consistent timing across Cortex-M 
+          devices.
       (+) Generates a recurring interrupt for system-wide timekeeping (systick_count).
-      (+) Atomicity: On Cortex-M0 (32-bit), aligned 32-bit word access is a single-cycle atomic operation (LDR).
-          This makes systick_get_tick() thread-safe without disabling interrupts.
+      (+) Atomicity: On Cortex-M0 (32-bit), aligned 32-bit word access is a single-cycle 
+          atomic operation (LDR). This makes systick_get_tick() thread-safe without 
+          disabling interrupts.
 
                       #####  Limitations #####
   =======================================================================================
@@ -33,7 +35,8 @@
           most of its time entering and exiting the interrupt handler, starving 
           the main application and other low-priority tasks of processing power.
           - Recommended: Use SysTick for millisecond ticks (1kHz).
-          - For Microseconds: Use a dedicated hardware timer (TIMx) for better efficiency.
+          - For Microseconds: Use a dedicated hardware timer (TIMx) for better 
+            efficiency.
 
       (+) Precision: Accuracy is directly tied to the AHB clock stability.
 
