@@ -34,5 +34,8 @@
 #include "stdbool.h"
 #include "stdint.h"
 //.......................................................................................
+ void systick_init(uint32_t frequency_tick, uint32_t systick_clock);
+ void systick_deinit(void);
+ void systick_delay(uint32_t ticks_delay);
 //.......................................................................................
 #endif /* 0_SYSTICK_SYSTICK_H_ */

@@ -117,3 +117,37 @@ static void config(uint32_t frequency_tick, uint32_t systick_clock)
  {
     reset();
  }
+
+ /**====================================================================================*
+  *  @brief                                                                             *
+  *                                                                                     *
+  *  @param                                                                             *
+  *                                                                                     *
+  *  @retval                                                                            *
+  *                                                                                     *
+  *-------------------------------------------------------------------------------------*/
+ uint32_t systick_get_tick(void)
+ {
+     uint32_t retval = 0;
+
+     retval = systick_count;
+
+     return retval;
+ }
+
+ /**====================================================================================* 
+ *  @brief                                                                             * 
+ *                                                                                     * 
+ *  @param                                                                             * 
+ *                                                                                     * 
+ *  @retval                                                                            * 
+ *                                                                                     * 
+ *-------------------------------------------------------------------------------------*/
+ void systick_delay(uint32_t ticks_delay)
+ {
+     uint32_t time_mark = systick_get_tick();
+
+     while(( systick_get_tick() - time_mark) < ticks_delay){
+        __NOP();
+    }
+ }
