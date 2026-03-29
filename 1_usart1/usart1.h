@@ -10,7 +10,7 @@
   =======================================================================================
     [..]  
       (+) Core-to-metal direct register manipulation (pure CMSIS).
-      (+) 128-byte software-controlled circular buffers (FIFO) for RX and TX.
+      (+) Configurable software-controlled circular buffers (FIFO) for RX and TX.
       (+) Interrupt-driven asynchronous operation (RXNE and TXE).
       (+) Thread-safe public API using NVIC protection during buffer access.
       (+) Automatic GPIO configuration (PA9/PA10) in Alternate Function mode.
@@ -19,7 +19,7 @@
                       #####  Limitations #####
   =======================================================================================
     [..]  
-      (-) Fixed buffer size (128 bytes), defined at compile time.
+      (-) Buffer sizes are predefined in usart1_conf.h (requires compilation).
       (-) Supports only standard 8N1 frame (8 bits, No parity, 1 stop bit).
       (-) Hardware Flow Control (RTS/CTS) is not implemented.
       (-) Depends on accurate peripheral clock (PCLK) provided by the user.
