@@ -15,12 +15,32 @@
       (+) Direct register manipulation (CMSIS) for maximum efficiency.
 
   =======================================================================================
+                      #####  Resolution Calculation #####
+  =======================================================================================
+    [..]  
+      The driver uses dynamic prescaling to maximize resolution. 
+      The number of discrete PWM steps (for duty cycle adjustment) is:
+
+      Steps = Peripheral_Clock / (Target_Frequency * (PSC + 1))
+
+      Where:
+      PSC = floor(Peripheral_Clock / (Target_Frequency * 65536))
+
+      Example (assuming 48MHz clock):
+      (+) At 1 kHz:  PSC = 0, Steps = 48,000 (~15.5 bits)
+      (+) At 16 kHz: PSC = 0, Steps = 3,000  (~11.5 bits)
+      (+) At 48 kHz: PSC = 0, Steps = 1,000  (0.1% resolution)
+      (+) At 1 Hz:   PSC = 732, Steps = 65,484 (~16 bits)
+
+  =======================================================================================
                       #####  Limitations #####
   =======================================================================================
     [..]  
       (-) Fixed pins on PA8 (CH1) and PA7 (CH1N) for this specific driver.
-      (-) Resolution limited by the peripheral clock and 16-bit prescaler.
-      (-) Supported PWM frequency up to 16kHz when peripheral clock is 48MHz.
+      (-) Resolution decreases as the target frequency increases.
+      (-) Max frequency is capped at 48kHz by the API to maintain at
+          least 0.1% resolution.
+      (-) Frequency range: ~0.7 Hz to 48 kHz.
 
   @endverbatim
   ***************************************************************************************
@@ -75,6 +95,31 @@ bool pwm_tim1_ch1_init(pwm_tim1_ch1_mode_e mode, bool inverted_phase, uint32_t p
  * @retval None
  **/
 void pwm_tim1_ch1_deinit(void);
+
+//.......................................................................................
+
+/**
+ * @brief  Sets the PWM frequency.
+ *         Calculates the optimal prescaler (PSC) and reload value (ARR) to 
+ *         maximize resolution for the given frequency.
+ * 
+ * @param  frequency: Target frequency in Hz.
+ * 
+ * @retval None
+ **/
+void pwm_set_frequency(uint32_t frequency);
+
+//.......................................................................................
+
+/**
+ * @brief  Sets the PWM duty cycle.
+ *         Supports fine adjustment from 0.0% to 100.0%.
+ * 
+ * @param  duty_cycle: Value from 0 to 1000 (representing 0.0% to 100.0%).
+ * 
+ * @retval None
+ **/
+void pwm_set_dutycycle(uint16_t duty_cycle);
 
 //.......................................................................................
 
