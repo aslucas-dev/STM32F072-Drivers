@@ -13,7 +13,6 @@
 #define PWM_MAX_FREQ            48000
 //.......................................................................................
 #define PWM_MAX_VALUE           1000
-#define PWM_MIN_VALUE           50
 //.......................................................................................
 static pwm_tim1_ch1_mode_e pwm_ch_mode = PWM_TIM1_CH1_MODE_DISABLED;
 static uint32_t pwm_prphl_clock = 0;
